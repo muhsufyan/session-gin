@@ -4,16 +4,13 @@ import (
 	"fmt"
 
 	"github.com/gin-contrib/sessions"
-	"github.com/gin-contrib/sessions/redis"
-
-	// "github.com/gin-contrib/sessions/cookie"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	r := gin.Default()
-	// store := cookie.NewStore([]byte("secret"))//biasa
-	store, _ := redis.NewStore(10, "tcp", "localhost:6379", "", []byte("secret"))
+	store := cookie.NewStore([]byte("secret"))
 	r.Use(sessions.Sessions("mysession", store))
 
 	r.GET("/", func(c *gin.Context) {
